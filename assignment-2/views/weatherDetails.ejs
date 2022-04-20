@@ -1,0 +1,39 @@
+<%- include('./includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/weatherdetails.css">
+    </head>
+
+    <body>
+        <%- include('./includes/navigation.ejs') %>
+
+            <main>
+                <% if (cityForeCast.length > 0) { %>
+                    <div class="grid">
+                        <% for (let element of cityForeCast) { %>
+                            <article class="card product-item">
+                                <header class="card__header">
+                                    <h1 class="weather__cityName">
+                                        <%= cityName %>
+                                    </h1>
+                                </header>
+                                <div class="card__content">
+                                    <h2 class="weather__min_max">$
+                                        Minimum: <%= cityForeCast.temperature.Minimum %>
+                                    </h2>
+                                    <h2 class="weather__min_max">$
+                                        <%= cityForeCast.temperature.Maximum %>
+                                    </h2>
+                                    <p class="weather__description">
+                                        <%= cityForeCast.day %> during the day, and <%= cityForeCast.night %> during the night
+                                    </p>
+                                    <p class="weather__description">
+                                        <%= cityForeCast.text %> <%= cityForeCast.text %>
+                                    </p>
+                                </div>
+                            </article>
+                            <% } %>
+                    </div>
+                    <% } else { %>
+                        <h1>weather forecast not found for this city</h1>
+                        <% } %>
+            </main>
+            <%- include('../includes/end.ejs') %>
