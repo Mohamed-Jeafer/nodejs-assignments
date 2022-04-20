@@ -10,9 +10,9 @@ const findServer = (req, res, next) => {
       return;
     }
     onlineServers.push({ url, priority: server.priority });
-  });
-  const lowestPriority = lowestPrioritySort(onlineServers);
-  return res.status(200).send(lowestPriority);
+    const lowestPriority = lowestPrioritySort(onlineServers);
+    res.status(200).send(lowestPriority);
+});
 };
 
 module.exports = findServer;

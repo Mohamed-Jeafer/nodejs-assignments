@@ -6,9 +6,8 @@ const lowestPrioritySort = (serverList) => {
         lowestPriority = server;
       }
     }
-    console.log("lowest priority", lowestPriority);
+    return lowestPriority
   }
-  console.log("server list", serverList);
 };
 
 module.exports = {
