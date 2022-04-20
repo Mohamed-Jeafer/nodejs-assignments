@@ -20,7 +20,7 @@ const getCityKeyValue = async (cityName) => {
     });
     return key;
   } catch (error) {
-    throw new Error (error);
+    throw new Error(error);
   }
 };
 
@@ -34,16 +34,16 @@ const getWeatherDetails = async (cityKeyValue) => {
       },
     });
 
-    const weatherForecast = [
-      { status: apiData.data.status },
-      { text: apiData.data.Headline.Text },
-      { temperature: apiData.data.DailyForecasts[0].Temperature },
-      { day: apiData.data.DailyForecasts[0].Day.IconPhrase },
-      { night: apiData.data.DailyForecasts[0].Night.IconPhrase },
-    ];
+    const weatherForecast =
+      {
+        text: apiData.data.Headline.Text,
+        temperature: apiData.data.DailyForecasts[0].Temperature,
+        day: apiData.data.DailyForecasts[0].Day.IconPhrase,
+        night: apiData.data.DailyForecasts[0].Night.IconPhrase,
+      };
     return weatherForecast;
   } catch (error) {
-    throw new Error (error);
+    throw new Error(error);
   }
 };
 

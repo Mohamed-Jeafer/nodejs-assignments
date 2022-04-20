@@ -12,6 +12,10 @@ router.get('/', (req, res)=>{
 
 router.post('/fetchWeather', weatherController)
 
+router.get('/weatherDetailsNotFound', (req, res)=>{
+    res.status(500).send('Ups, There was an error fetching the weather details')
+})
+
 
 
 module.exports = router;

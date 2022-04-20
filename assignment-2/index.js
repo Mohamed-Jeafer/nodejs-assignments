@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/weather', weatherRoutes)
 
 app.get('/', (req, res)=>{
-    res.send('server is alive')
+    res.redirect("/weather")
 })
 
 app.listen(3000);
