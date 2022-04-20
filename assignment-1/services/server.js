@@ -1,7 +1,7 @@
 const axios = require("axios");
 const fetchServer = async (server) => {
   try {
-    const response = await axios.get(server);
+    const response = await axios.get(server,{},{ timeout: 5000 });
     if (response.status >= 200 && response.status < 300) {
       return server;
     }

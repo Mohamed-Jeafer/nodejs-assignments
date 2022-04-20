@@ -11,8 +11,8 @@ const findServer = (req, res, next) => {
     }
     onlineServers.push({ url, priority: server.priority });
     const lowestPriority = lowestPrioritySort(onlineServers);
-    res.status(200).send(lowestPriority);
-});
+    return res.status(200).send(lowestPriority);
+  });
 };
 
 module.exports = findServer;
