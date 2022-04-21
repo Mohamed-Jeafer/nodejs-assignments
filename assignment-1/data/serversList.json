@@ -1,11 +1,11 @@
 [
   {
     "url": "http://doesNotExist.boldtech.co",
-    "priority": 1
+    "priority": 9
   },
   {
     "url": "http://boldtech.co",
-    "priority": 7
+    "priority": 4
   },
   {
     "url": "http://offline.boldtech.co",
@@ -13,6 +13,6 @@
   },
   {
     "url": "http://google.com",
-    "priority": 4
+    "priority": 7
   }
 ]

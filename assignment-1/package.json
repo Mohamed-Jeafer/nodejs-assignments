@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "axios": "^0.26.1",
-    "express": "^4.17.3"
+    "express": "^4.17.3",
+    "express-async-handler": "^1.2.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
