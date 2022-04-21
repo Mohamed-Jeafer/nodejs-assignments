@@ -11,22 +11,22 @@
                             <article class="card product-item">
                                 <header class="card__header">
                                     <h1 class="weather__cityName">
-                                        <%= cityName %> City
+                                        <%= cityName %> city
                                     </h1>
                                 </header>
                                 <div class="card__content">
-                                    <p class="weather__min_max">
-                                        Minimum temperature: <%= forecast.temperature.Minimum.Value %> F
-                                    </p>
-                                    <p class="weather__min_max">
-                                        Maximum temperature: <%= forecast.temperature.Maximum.Value %> F
-                                    </p>
-                                    <h3 class="weather__description">
-                                        <%= forecast.day %> during the day, <br> and <%= forecast.night %> during the night
+                                    <h3 class="weather__min_max">
+                                        Minimum temperature: <%= forecast.temp_min %> C
+                                    </h3>
+                                    <h3 class="weather__min_max">
+                                        Maximum temperature: <%= forecast.temp_max %> C
                                     </h3>
                                     <h4 class="weather__description">
-                                        <%= forecast.text %> <%= forecast.text %>
+                                        Humidity <%= forecast.temperature.humidity %> <br> Pressure <%= forecast.temperature.pressure %>
                                     </h4>
+                                    <p class="weather__description">
+                                        Weather Description: <%= forecast.text %>
+                                    </p>
                                 </div>
                             </article>
                     </div>

@@ -5,45 +5,49 @@ const getCityKeyValue = async (cityName) => {
   try {
     const cityDetails = await axios.get(APIConfig.cityURL, {
       params: {
-        apikey: APIConfig.APIKey,
         q: cityName,
+        limit: 1,
+        apikey: APIConfig.APIKey,
       },
     });
-
-    let key = "";
-    cityDetails.data.forEach((item) => {
-      for (let i in item) {
-        if (i === "Key") {
-          key = item[i];
-        }
-      }
-    });
-    return key;
+    const geo = {
+      lat: cityDetails.data[0].lat,
+      lon: cityDetails.data[0].lon,
+    };
+    return geo;
   } catch (error) {
-    throw new Error(error);
+    const err = {
+      status: error.status,
+      message: error.statusText,
+    };
+    return err;
   }
 };
 
-const getWeatherDetails = async (cityKeyValue) => {
-  const url = APIConfig.forecastURL.concat(cityKeyValue);
-
+const getWeatherDetails = async (geo) => {
   try {
-    const apiData = await axios.get(url, {
+    const apiData = await axios.get(APIConfig.forecastURL, {
       params: {
-        apikey: APIConfig.APIKey,
+        lat: geo.lat,
+        lon: geo.lon,
+        units: APIConfig.units,
+        appid: APIConfig.APIKey,
       },
     });
-
-    const weatherForecast =
-      {
-        text: apiData.data.Headline.Text,
-        temperature: apiData.data.DailyForecasts[0].Temperature,
-        day: apiData.data.DailyForecasts[0].Day.IconPhrase,
-        night: apiData.data.DailyForecasts[0].Night.IconPhrase,
-      };
+    const weatherForecast = {
+      status: apiData.status,
+      text: apiData.data.weather[0].description,
+      temperature: apiData.data.main,
+      temp_min: apiData.data.main.temp_min,
+      temp_max: apiData.data.main.temp_max,
+    };
     return weatherForecast;
   } catch (error) {
-    throw new Error(error);
+    const err = {
+      status: error.status,
+      message: error.statusText,
+    };
+    return err;
   }
 };
 

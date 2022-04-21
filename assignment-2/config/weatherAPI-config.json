@@ -1,5 +1,6 @@
 {
-    "APIKey":"OoPhH0STx2pMEbc9vATxcdvb6vVKEWW6",
-    "forecastURL": "http://dataservice.accuweather.com/forecasts/v1/daily/1day/",
-    "cityURL":"http://dataservice.accuweather.com/locations/v1/cities/search"
+    "APIKey":"bfd8d9a953d92940e7c76e8f218f2fba",
+    "forecastURL": "https://api.openweathermap.org/data/2.5/weather",
+    "cityURL":"http://api.openweathermap.org/geo/1.0/direct",
+    "units": "metric"
 }
