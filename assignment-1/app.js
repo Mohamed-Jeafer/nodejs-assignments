@@ -7,7 +7,7 @@ const app = express()
 
 
 app.get('/', (req, res)=>{
-    res.status(200).send('server is alive')
+    res.redirect('/servers/find-server')
 })
 
 app.use('/servers', serversRoutes)

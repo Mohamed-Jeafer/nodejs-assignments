@@ -1,8 +1,9 @@
 const fetchServer = require("../services/server");
 const { lowestPrioritySort } = require("../util/server");
 const serverList = require("../data/serversList.json");
+
+const onlineServers = []
 const findServer = async (req, res, next) => {
-  const onlineServers = [];
   try {
     serverList.forEach(async (server) => {
       const url = await fetchServer(server.url);
@@ -11,13 +12,13 @@ const findServer = async (req, res, next) => {
       }
       onlineServers.push({ url, priority: server.priority });
     });
+    setTimeout(() => {
+      const lowestPriority = lowestPrioritySort(onlineServers);
+      return res.status(200).send(lowestPriority);
+    }, 2000);
   } catch (error) {
-    console.log(error);
+    throw new Error ("All servers were not available")
   }
-  setTimeout(() => {
-    const lowestPriority = lowestPrioritySort(onlineServers);
-    return res.status(200).send(lowestPriority);
-  }, 2000);
 };
 
 module.exports = findServer;

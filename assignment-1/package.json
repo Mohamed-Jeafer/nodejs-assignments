@@ -1,18 +1,21 @@
 {
   "dependencies": {
     "axios": "^0.26.1",
+    "chai": "^4.3.6",
     "express": "^4.17.3",
-    "express-async-handler": "^1.2.0"
+    "express-async-handler": "^1.2.0",
+    "mocha": "^9.2.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "sinon": "^13.0.2"
   },
   "name": "findserver",
   "version": "1.0.0",
   "description": "find online servers",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "start": "nodemon app.js"
   },
   "repository": {
