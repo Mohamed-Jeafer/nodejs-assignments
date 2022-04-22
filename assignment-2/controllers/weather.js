@@ -1,12 +1,13 @@
 const { getCityCoordinates, getWeatherDetails } = require("../services/weather");
 const { findOne } = require("../models/weather");
 
-//throttle is responsible for the delay
+
 const getWeather = throttle(async (req, res, next) => {
   const forecast = await callAPI(req, res, next);
   renderWeatherPage(forecast, req, res, next);
 });
 
+//throttle is responsible for the delay
 function throttle(cb, delay = 20000) {
   let shouldWait = false;
   let cityName;
