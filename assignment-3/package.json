@@ -1,0 +1,19 @@
+{
+  "name": "callback-and-events",
+  "version": "1.0.0",
+  "description": "Callback and Custom event handling ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mohamed-Jeafer/nodejs-assignments.git"
+  },
+  "author": "Mohamed Jeafer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Mohamed-Jeafer/nodejs-assignments/issues"
+  },
+  "homepage": "https://github.com/Mohamed-Jeafer/nodejs-assignments#readme"
+}
