@@ -1,62 +1,67 @@
-const { getCityKeyValue, getWeatherDetails } = require("../services/weather");
+const { getCityCoordinates, getWeatherDetails } = require("../services/weather");
+const { findOne } = require("../models/weather");
 
-let cityForecast;
-let cityName
-const getWeather = (req, res, next) => {
-  updateWeather(req, res, next);
-};
-
-const renderWeatherPage = (req, res) => {
-  res.render("weatherDetails", {
-    forecast: cityForecast,
-    cityName: cityName,
-    pageTitle: "Weather Forecast",
-    path: "weatherDetails",
-  });
-};
-const updateWeather = throttle(async (req, res, next) => {
-  try {
-    cityName = req.body.cityName;
-    const cityGeoCoord = await getCityKeyValue(cityName);
-    cityForecast = await getWeatherDetails(cityGeoCoord);
-    if (
-      cityForecast &&
-      cityForecast.status >= 200 &&
-      cityForecast.status < 300
-    ) {
-      renderWeatherPage(req, res);
-    }
-    // else {
-    //   res
-    //     .status(cityForecast.status)
-    //     .redirect("/weather/weatherDetailsNotFound");
-    // }
-  } catch (error) {
-    console.log(error);
-    res.redirect("/weather/weatherDetailsNotFound");
-    next();
-  }
+//throttle is responsible for the delay
+const getWeather = throttle(async (req, res, next) => {
+  const forecast = await callAPI(req, res, next);
+  renderWeatherPage(forecast, req, res, next);
 });
 
 function throttle(cb, delay = 20000) {
   let shouldWait = false;
-  
-  return (req, res, next) => {
-    console.log(req.body.cityName)
-    if (shouldWait && cityName === req.body.cityName) {
-      console.log("Getting data from DB");
-      renderWeatherPage(req, res)
+  let cityName;
+
+  return async (...args) => {
+    const [req] = args;
+    if (shouldWait && cityName === req.body.cityName.toLowerCase()) {
+      // last call less than delay period
+      const forecast = await callDb(...args);
+      renderWeatherPage(forecast, ...args);
       return;
     }
-    
-    cb(req, res, next);
-    console.log("Getting data from API");
-    shouldWait = true
+
+    // last call is more than delay period
+    cb(...args);
+    shouldWait = true;
+    cityName = req.body.cityName.toLowerCase()
     setTimeout(() => {
-      console.log("Done waiting")
       shouldWait = false;
     }, delay);
   };
 }
 
+const renderWeatherPage = async (forecast, ...args) => {
+  const [req, res] = args;
+  if (!forecast){
+   return res.render("weatherDetails", {
+      forecast: null,
+      pageTitle: "Weather Forecast",
+      path: "weatherDetails",
+    });
+  }
+  res.render("weatherDetails", {
+    forecast,
+    pageTitle: "Weather Forecast",
+    path: "weatherDetails",
+  });
+};
+const callAPI = async (req, res, next) => {
+  try {
+    const cityName = req.body.cityName.toLowerCase();
+    const coordinates = await getCityCoordinates(cityName);
+    const forecast = await getWeatherDetails(coordinates);
+    return forecast;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const callDb = async (...args) => {
+  const [req] = args;
+  try {
+    const cityName = req.body.cityName.toLowerCase();
+    const forecast = await findOne(cityName);
+    return forecast;
+  } catch (error) {}
+};
 module.exports = getWeather;

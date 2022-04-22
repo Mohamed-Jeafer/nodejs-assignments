@@ -1,57 +1,77 @@
 const APIConfig = require("../config/weatherAPI-config.json");
+const { WeatherForecast } = require("../models/weather");
 const axios = require("axios");
 
-const getCityKeyValue = async (cityName) => {
+const getCityCoordinates = async (cityName) => {
+  if (!cityName) {
+    return;
+  }
   try {
-    const cityDetails = await axios.get(APIConfig.cityURL, {
+    const response = await axios.get(APIConfig.coordinatesURL, {
       params: {
         q: cityName,
         limit: 1,
         apikey: APIConfig.APIKey,
       },
     });
-    const geo = {
-      lat: cityDetails.data[0].lat,
-      lon: cityDetails.data[0].lon,
-    };
-    return geo;
+    const coordinates = getCoordinates(response);
+    return coordinates;
   } catch (error) {
-    const err = {
-      status: error.status,
-      message: error.statusText,
-    };
-    return err;
+    throw new Error(error);
   }
 };
 
-const getWeatherDetails = async (geo) => {
+const getWeatherDetails = async (coordinates) => {
+  if (!coordinates) {
+    return;
+  }
   try {
-    const apiData = await axios.get(APIConfig.forecastURL, {
+    const response = await axios.get(APIConfig.forecastURL, {
       params: {
-        lat: geo.lat,
-        lon: geo.lon,
+        lat: coordinates.lat,
+        lon: coordinates.lon,
         units: APIConfig.units,
         appid: APIConfig.APIKey,
       },
     });
-    const weatherForecast = {
-      status: apiData.status,
-      text: apiData.data.weather[0].description,
-      temperature: apiData.data.main,
-      temp_min: apiData.data.main.temp_min,
-      temp_max: apiData.data.main.temp_max,
-    };
+    const weatherForecast = getWeatherForecastObject(coordinates, response);
+    weatherForecast.upsert();
     return weatherForecast;
   } catch (error) {
-    const err = {
-      status: error.status,
-      message: error.statusText,
-    };
-    return err;
+    throw new Error(error);
   }
 };
 
+function getWeatherForecastObject(coordinates, response) {
+  if (!response.data) {
+    return;
+  }
+  const forecast = new WeatherForecast(
+    coordinates.cityName,
+    coordinates.country,
+    response.data.weather[0].description,
+    response.data.main,
+    response.data.main.temp_min,
+    response.data.main.temp_max
+  );
+  return forecast;
+}
+
+function getCoordinates(response) {
+  if (!response.data || response.data.length < 1) {
+    return;
+  }
+  
+  const data = {
+    cityName: response.data[0].name.toLowerCase(),
+    country: response.data[0].country.toLowerCase(),
+    lat: response.data[0].lat,
+    lon: response.data[0].lon,
+  };
+  return data;
+}
+
 module.exports = {
-  getCityKeyValue,
+  getCityCoordinates,
   getWeatherDetails,
 };

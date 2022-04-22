@@ -1,6 +1,6 @@
 {
     "APIKey":"bfd8d9a953d92940e7c76e8f218f2fba",
     "forecastURL": "https://api.openweathermap.org/data/2.5/weather",
-    "cityURL":"http://api.openweathermap.org/geo/1.0/direct",
+    "coordinatesURL":"http://api.openweathermap.org/geo/1.0/direct",
     "units": "metric"
 }

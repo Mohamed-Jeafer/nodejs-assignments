@@ -1,0 +1,8 @@
+{
+  "clusterName": "AirCanadaAssignment",
+  "collection": "forecast",
+  "database":"weather",
+  "username": "nodeuser",
+  "password": "rootNodeUser",
+  "uri":"mongodb+srv://nodeuser:rootNodeUser@aircanadaassignment.wsmyp.mongodb.net/weather?retryWrites=true&w=majority"
+}
