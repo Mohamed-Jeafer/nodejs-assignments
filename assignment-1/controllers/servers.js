@@ -14,7 +14,7 @@ const findServer = async (req, res, next) => {
     });
     setTimeout(() => {
       const lowestPriority = lowestPrioritySort(onlineServers);
-      return res.status(200).send(lowestPriority);
+      return res.status(200).json(lowestPriority);
     }, 2000);
   } catch (error) {
     throw new Error ("All servers were not available")
