@@ -89,7 +89,7 @@ dist
 # public
 
 # VS Code IDE
-.vscode
+.vscode/
 
 # vuepress build output
 .vuepress/dist
