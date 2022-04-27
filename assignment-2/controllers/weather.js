@@ -37,13 +37,11 @@ const renderWeatherPage = async (forecast, ...args) => {
    return res.render("weatherDetails", {
       forecast: null,
       pageTitle: "Weather Forecast",
-      path: "weatherDetails",
     });
   }
   res.render("weatherDetails", {
     forecast,
     pageTitle: "Weather Forecast",
-    path: "weatherDetails",
   });
 };
 const callAPI = async (req, res, next) => {

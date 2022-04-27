@@ -3,7 +3,6 @@ document.addEventListener("keyup", (event) => {
     getValues(document.querySelector("button"));
   }
 });
-// let result = 0
 const getValues = (btn) => {
   const n1 = btn.parentNode.querySelector("[id=n1]").value;
   const n2 = btn.parentNode.querySelector("[id=n2]").value;
@@ -35,4 +34,3 @@ const sum = (multiplesOfNum1, multiplesOfNum2) => {
   return sum;
 };
 
-//  setTimeout(()=>{}, 2000);
