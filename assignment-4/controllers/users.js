@@ -1,22 +1,20 @@
 const userServices = require("../services/user");
 
-exports.viewAllUsers = (req, res) => {
-  const allUsers = userServices.viewUsers();
-  if (!allUsers) {
+exports.viewAllUsers = async (req, res) => {
+  try {
+    const allUsers = await userServices.viewUsersFromGet();
+    res.status(200).json(allUsers);
+  } catch (error) {
     res.status(404).send("Error getting users");
   }
-  res.status(200).json(allUsers);
 };
 
 exports.viewOneUser = async (req, res) => {
-  const id = req.params.id;
-  if (!id) {
-        res.status(404).send("user not found");
-  }
+  const id = req.params?.id;
   try {
     const allUsers = await userServices.viewUsersFromGet();
-    const OneUser = findUserByID(allUsers, id);
-    res.status(200).json(OneUser);
+    const oneUser = findUserByID(allUsers, id);
+    oneUser.length < 1 ? res.status(404).send("user not found") : res.status(200).json(oneUser);
   } catch (error) {
     console.log(error);
   }
@@ -24,12 +22,12 @@ exports.viewOneUser = async (req, res) => {
 
 exports.AddUsers = async (req, res) => {
   const user = req.body;
-  if (!user) {
-    res.status(404).send("user not found");
+  if (Object.keys(user).length <= 0) {
+    return res.status(500).send("Please add user details");
   }
   try {
     await userServices.saveUser(user);
-    res.status(200).json("saved");
+    return res.status(200).json("saved");
   } catch (error) {
     console.log(error);
   }
@@ -44,16 +42,20 @@ exports.editUsers = async (req, res) => {
   try {
     const allUsers = await userServices.viewUsersFromPost();
     const oneUser = findUserByID(allUsers, id);
+    if (oneUser.length < 1) {
+      res.status(404).send("user not found")
+    }
+
     const updatedUser = oneUser.map((user) => {
       return { ...user, ...updateProperty };
     });
-    userServices.saveEditedUser(updatedUser)
+    userServices.saveEditedUser(updatedUser);
     res.status(200).json(updatedUser);
   } catch (error) {}
 };
 
 const findUserByID = (listOfUsers, id) => {
-  const filteredUser = listOfUsers.users.filter((singleUser) => {
+  const filteredUser = listOfUsers.filter((singleUser) => {
     return singleUser.id === id;
   });
   return filteredUser;

@@ -26,6 +26,19 @@
 >>  The following are the available endpoints
 
 >> localhost:3000/view
->> localhost:3000/view/id
+
+>> localhost:3000/view/:id
+>> id is the id number of the user
+
 >> localhost:3000/add
->> localhost:3000/edit/
+>> JSON body key value of the new users. 
+Example: {
+"id": "5",
+"name": "MyName MyLastName",
+"age": "34",
+"gender": "Male",
+"email": "usero4ne@gmail.com"
+}
+
+>> localhost:3000/edit/:id
+>> JSON body key value of the property to be change. e.g {"name":"myName"}

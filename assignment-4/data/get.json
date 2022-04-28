@@ -1,33 +1,53 @@
 {
-    "users": [
-      {
-        "id": "1",
-        "name": "updated name",
-        "age": "22",
-        "gender": "Male",
-        "email": "userone@gmail.com"
-      },
-      {
-        "id": "2",
-        "name": "user two",
-        "age": "24",
-        "gender": "Female",
-        "email": "usertwo@gmail.com"
-      },
-      {
-        "id": "3",
-        "name": "user three",
-        "age": "23",
-        "gender": "Male",
-        "email": "userthree@gmail.com"
-      },
-      {
-        "id": "4",
-        "name": "updated name2",
-        "age": "44",
-        "gender": "Male",
-        "email": "usero4ne@gmail.com"
-      }
-    ]
-  }
-  
+  "users": [
+    {
+      "id": "1",
+      "name": "updated name",
+      "age": "22",
+      "gender": "Male",
+      "email": "userone@gmail.com"
+    },
+    {
+      "id": "2",
+      "name": "user two",
+      "age": "24",
+      "gender": "Female",
+      "email": "usertwo@gmail.com"
+    },
+    {
+      "id": "3",
+      "name": "user three",
+      "age": "23",
+      "gender": "Male",
+      "email": "userthree@gmail.com"
+    },
+    {
+      "id": "4",
+      "name": "updated name2",
+      "age": "34",
+      "gender": "Male",
+      "email": "usero4ne@gmail.com"
+    },
+    {
+      "id": "6",
+      "name": "Mohamed Jeafer",
+      "age": "34",
+      "gender": "Male",
+      "email": "usero4ne@gmail.com"
+    },
+    {
+      "id": "5",
+      "name": "Mustafa Jeafer",
+      "age": "3",
+      "gender": "Male",
+      "email": "usero4ne@gmail.com"
+    },
+    {
+      "id": "5",
+      "name": "Mustafa Jeafer",
+      "age": "3",
+      "gender": "Male",
+      "email": "usero4ne@gmail.com"
+    }
+  ]
+}

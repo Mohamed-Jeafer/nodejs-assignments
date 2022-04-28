@@ -45,6 +45,7 @@ const renderWeatherPage = async (forecast, ...args) => {
   });
 };
 const callAPI = async (req, res, next) => {
+  console.log('getting it from the api')
   try {
     const cityName = req.body.cityName.toLowerCase();
     const coordinates = await getCityCoordinates(cityName);
@@ -56,6 +57,8 @@ const callAPI = async (req, res, next) => {
 };
 
 const callDb = async (...args) => {
+  console.log('getting it from the db')
+
   const [req] = args;
   try {
     const cityName = req.body.cityName.toLowerCase();
